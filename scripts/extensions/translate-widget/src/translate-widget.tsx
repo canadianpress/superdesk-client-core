@@ -58,11 +58,9 @@ export const getTranslateWidgetComponent = (
             <div className="input-column" style={{flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', padding: '16px', gap: '32px', height: '100%', borderRight: '1px solid #ddd'}}>
               <section className="language-selection">
                 <RadioButtonGroup
-                  group={{ groupLabel: "Input Languages" }}
+                  group={{ groupLabel: "Input Language" }}
                   options={[
-                    { value: "en", label: "English" },
-                    { value: "fr", label: "French" },
-                    { value: "sp", label: "Spanish" },
+                    { value: "en", label: "English" }
                   ]}
                   value="en"
                   onChange={() => false}
