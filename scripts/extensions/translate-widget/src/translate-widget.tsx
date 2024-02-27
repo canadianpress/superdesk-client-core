@@ -114,13 +114,14 @@ export const getTranslateWidgetComponent = (
                       borderTopLeftRadius: '2px',
                       borderTopRightRadius: '2px',
                       padding: '0.8rem',
-                      fontSize: '16px',
+                      fontSize: '14px',
                       outline: 'none',
                       overflow: 'auto',
                       width: '100%',
                       height: '100%',
                       resize: 'none',
                       background: 'rgba(111, 125, 144, 0.06)',
+                      color: 'rgba(44, 50, 58, .4)'
                     }}
                   />
                 </div>
@@ -132,7 +133,7 @@ export const getTranslateWidgetComponent = (
                 onClick={this.handleTranslateClick}
               />
             </div>
-            <div className="output-column" style={{flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', padding: '16px', paddingRight: '0', gap: '32px', height: '94%'}}>
+            <div className="output-column" style={{flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', padding: '16px', paddingRight: '0', gap: '32px', height: '100%'}}>
               <section className="language-selection" style={{marginLeft: '8px'}}>
                 <RadioButtonGroup
                   group={{ groupLabel: "Output Languages" }}
@@ -188,7 +189,7 @@ export const getTranslateWidgetComponent = (
                       borderTopLeftRadius: '2px',
                       borderTopRightRadius: '2px',
                       padding: '0.8rem',
-                      fontSize: '16px',
+                      fontSize: '14px',
                       outline: 'none',
                       overflow: 'auto',
                       width: '100%',
