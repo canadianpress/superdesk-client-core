@@ -136,9 +136,9 @@ export const getTranslateWidgetComponent = (
                 <RadioButtonGroup
                   group={{ groupLabel: "Output Languages" }}
                   options={[
-                    { value: "en", label: "English" },
                     { value: "fr", label: "French" },
                     { value: "sp", label: "Spanish" },
+                    { value: "de", label: "German" },
                   ]}
                   value="fr"
                   onChange={() => false}
