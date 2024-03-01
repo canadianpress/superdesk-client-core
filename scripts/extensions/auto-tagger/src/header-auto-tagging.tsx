@@ -27,7 +27,8 @@ export function getHeaderAutoTaggingComponent(superdesk: ISuperdesk) {
             const data = {original: {analysis: resClient}, changes: {analysis: resClient}};
 
             const {entitiesGroupedAndSorted, othersGrouped} = getAutoTaggingData(data, this.semaphoreFields);
-
+            console.log("entitiesGroupedAndSorted", entitiesGroupedAndSorted)
+            console.log("othersGrouped", othersGrouped)
             const savedTags = data.original.analysis.keySeq().toSet();
 
             let allGrouped = OrderedMap<string, JSX.Element>();

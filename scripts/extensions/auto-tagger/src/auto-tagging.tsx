@@ -212,8 +212,9 @@ export function getAutoTaggingComponent(superdesk: ISuperdesk, label: string) {
                         },
                     },
                 }).then((res) => {
+                    console.log("response", res)
                     const resClient = toClientFormat(res.analysis);               
-
+                    console.log("resClient", resClient)
                     if (this._mounted) {   
                         const existingTags = dataBeforeLoading !== 'loading' && dataBeforeLoading !== 'not-initialized'
                         ? dataBeforeLoading.changes.analysis // keep existing tags
