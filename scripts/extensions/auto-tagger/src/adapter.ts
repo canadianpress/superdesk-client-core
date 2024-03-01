@@ -150,8 +150,8 @@ export function toServerFormat(items: OrderedMap<string, ITagUi>, superdesk: ISu
                 result.subject = [];
             }
 
-            const {name, description, qcode, source, altids, aliases, original_source, parent} = item;
-
+            const {name, description, qcode, source, altids, scheme, aliases, original_source, parent} = item;
+            console.log("scheme", scheme)
             const subjectTag: ISubjectTag = {
                 name,
                 description,
@@ -159,7 +159,7 @@ export function toServerFormat(items: OrderedMap<string, ITagUi>, superdesk: ISu
                 source,
                 altids,
                 parent,
-                scheme: item.group.value,
+                scheme,
                 aliases,
                 original_source,
             };
