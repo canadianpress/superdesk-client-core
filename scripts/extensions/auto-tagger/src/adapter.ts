@@ -85,7 +85,7 @@ export function toClientFormat(response: IServerResponse): OrderedMap<string, IT
 
         }
     });
-    console.log("response.subject", response.subject)
+
 
     const others: Array<{group: string; items: Array<ITagBase>}> = [];
 
@@ -189,6 +189,6 @@ export function toServerFormat(items: OrderedMap<string, ITagUi>, superdesk: ISu
             assertNever(item.group.kind);
         }
     });
-    console.log("items in serverFormat", items)
+
     return result;
 }
