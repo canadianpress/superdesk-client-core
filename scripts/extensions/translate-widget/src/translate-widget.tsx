@@ -34,7 +34,7 @@ export const getTranslateWidgetComponent = (
   > {
 
     constructor(props: TranslatingWidgetProps) {
-
+      console.log(superdesk, label)
       super(props);
       this.state = {
         isTranslateClicked: false,
