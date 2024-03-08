@@ -782,18 +782,24 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
             scope.selectedTerm = '';
 
             scope.searchTerms = function(term) {
+                console.log('Term:', term); // Log the term
                 if (!term) {
                     scope.terms = filterSelected(scope.list);
+                    console.log('Terms:', scope.terms); // Log the terms
                     scope.activeList = false;
+                    console.log('Active List:', scope.activeList); // Log the activeList flag
                 } else {
                     let searchList;
 
                     if (disabledChildrenSearch) {
                         searchList = scope.list.filter((item) => !item.parent);
+                        console.log('Search List:', searchList); // Log the searchList
                     } else if (reloadList) {
                         searchList = scope.list;
+                        console.log('Search List:', searchList); // Log the searchList
                     } else {
                         searchList = scope.combinedList;
+                        console.log('Search List:', searchList); // Log the searchList
                     }
 
                     scope.terms = $filter('sortByName')(_.filter(filterSelected(searchList), (t) => {
@@ -805,21 +811,18 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
                             && t.translations.name[scope.item.language] != null;
 
                         searchObj[scope.uniqueField] = t[scope.uniqueField];
-                        console.log('Search Object:', searchObj); // Log the search object
 
                         if (searchFromTranslations) {
-                            const includesTerm = t.translations.name[scope.item.language].toLowerCase().includes(termLower);
-                            console.log('Includes Term: searchFromTranslations true', includesTerm); // Log the includesTerm flag
-                            return includesTerm && !_.find(scope.item[scope.field], searchObj);
+                            return t.translations.name[scope.item.language].toLowerCase().includes(termLower)
+                                && !_.find(scope.item[scope.field], searchObj);
                         }
 
                         if (searchUnique) {
                             // In case we want to search by some unique field like qcode as well as name
                             // see SD-4829
-                            const includesTerm = t.name.toLowerCase().includes(termLower)
-                                || t[scope.uniqueField].toLowerCase().includes(termLower);
-                            console.log('Includes Term: searchUnique true', includesTerm); // Log the includesTerm flag
-                            return includesTerm && !_.find(scope.item[scope.field], searchObj);
+                            return t.name.toLowerCase().includes(termLower)
+                                || t[scope.uniqueField].toLowerCase().includes(termLower)
+                                && !_.find(scope.item[scope.field], searchObj);
                         }
 
                         const includesTerm = t.name.toLowerCase().includes(termLower)
@@ -1299,17 +1302,12 @@ export function MetadataService(api, subscribersService, vocabularies, $rootScop
         },
         getFilteredCustomVocabularies: function(qcodes) {
             return this.fetchMetadataValues().then(() => this.cvs.filter((cv) => {
-                console.log('Custom Vocabulary:', cv); // Log the custom vocabulary
                 var cvService = cv.service || {};
-                console.log('CV Service:', cvService); // Log the cvService
 
                 if (cvService.all) {
                     cv.terms = (cv.items || []).filter((item) => {
-                        console.log('Item:', item); // Log the item
                         if (item.service) {
-                            return qcodes.some((qcode) => {
-                                return !!item.service[qcode];
-                            });
+                            return qcodes.some((qcode) => !!item.service[qcode]);
                         } else {
                             return true;
                         }
@@ -1317,9 +1315,7 @@ export function MetadataService(api, subscribersService, vocabularies, $rootScop
                     return true;
                 } else {
                     cv.terms = cv.items;
-                    return qcodes.some((qcode) => {
-                        return !!cvService[qcode];
-                    });
+                    return qcodes.some((qcode) => !!cvService[qcode]);
                 }
             }));
         },
@@ -1348,17 +1344,11 @@ export function MetadataService(api, subscribersService, vocabularies, $rootScop
         getAllCustomVocabulariesForArticleHeader: function(editor, schema) {
             return this.fetchMetadataValues().then(() => {
                 const customVocabulariesForArticleHeader = this.cvs.filter(
-                    (cv) => {
-                        console.log("custom vocabularies for article header",cv); // Log the custom vocabulary
-                        return cv.field_type == null && cv.service && (editor[cv._id] || schema[cv._id]);
-                    },
+                    (cv) => cv.field_type == null && cv.service && (editor[cv._id] || schema[cv._id]),
                 );
 
                 const customTextAndDateVocabularies = this.cvs.filter(
-                    (cv) => {
-                        console.log("custom text and date vocabularies",cv); // Log the custom vocabulary
-                        return cv.field_type === 'text' || cv.field_type === 'date';
-                    },
+                    (cv) => cv.field_type === 'text' || cv.field_type === 'date',
                 );
 
                 return {customVocabulariesForArticleHeader, customTextAndDateVocabularies};
