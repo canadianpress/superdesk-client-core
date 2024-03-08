@@ -850,7 +850,12 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
                     }
                 });
 
-                return _.filter(terms, (term) => term && !selected[term[scope.uniqueField]]);
+                console.log('Selected:', selected); // Log the selected object
+
+                let filteredTerms = _.filter(terms, (term) => term && !selected[term[scope.uniqueField]]);
+                console.log('Filtered Terms in filterSelected:', filteredTerms); // Log the filtered terms
+
+                return filteredTerms;
             }
 
             function addTerm(term) {
