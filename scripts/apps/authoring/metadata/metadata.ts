@@ -811,6 +811,8 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
                             && t.translations.name[scope.item.language] != null;
 
                         searchObj[scope.uniqueField] = t[scope.uniqueField];
+                        console.log('Search Obj:', searchObj); // Log the searchObj
+                        console.log('Find Result:', _.find(scope.item[scope.field], searchObj)); // Log the find result
 
                         if (searchFromTranslations) {
                             return t.translations.name[scope.item.language].toLowerCase().includes(termLower)
