@@ -801,8 +801,7 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
                         searchList = scope.combinedList;
                         console.log('Search List:', searchList); // Log the searchList
                     }
-
-                    scope.terms = $filter('sortByName')(_.filter(filterSelected(searchList), (t) => {
+                    let filteredTerms = _.filter(filterSelected(searchList), (t) => {
                         console.log('Term:', t); // Log the term
                         var searchObj = {};
                         const termLower = term.toLowerCase();
@@ -834,7 +833,9 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
                         // {qcode: "1", name: "Arbeidsliv", scheme: "subject_custom"}  is already added
                         // and if user search for "Arbeidsliv" again he shouln't get any search results
                         return includesTerm && !_.find(scope.item[scope.field], searchObj);
-                    }));
+                    });
+                    console.log('Filtered Terms:', filteredTerms);
+                    scope.terms = $filter('sortByName')(filteredTerms)
                     scope.activeList = true;
                 }
                 return scope.terms;
