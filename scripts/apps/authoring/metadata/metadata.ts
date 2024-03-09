@@ -835,7 +835,7 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
                         return includesTerm && !_.find(scope.item[scope.field], searchObj);
                     });
                     console.log('Filtered Terms:', filteredTerms);
-                    scope.terms = $filter('sortByName')(filteredTerms)
+                    scope.terms = filteredTerms;
                     scope.activeList = true;
                 }
                 return scope.terms;
