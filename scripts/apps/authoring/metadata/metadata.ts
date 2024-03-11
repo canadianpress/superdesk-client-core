@@ -793,16 +793,15 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
 
                     if (disabledChildrenSearch) {
                         searchList = scope.list.filter((item) => !item.parent);
-                        console.log('Search List:', searchList); // Log the searchList
+                        console.log('disabledChildrenSearch Search List:', searchList); // Log the searchList
                     } else if (reloadList) {
                         searchList = scope.list;
-                        console.log('Search List:', searchList); // Log the searchList
+                        console.log('reloadList Search List:', searchList); // Log the searchList
                     } else {
                         searchList = scope.combinedList;
-                        console.log('Search List:', searchList); // Log the searchList
+                        console.log('else Search List:', searchList); // Log the searchList
                     }
                     let filteredTerms = _.filter(filterSelected(searchList), (t) => {
-                        console.log('Term:', t); // Log the term
                         var searchObj = {};
                         const termLower = term.toLowerCase();
                         // if there are translations available search term from the translations
@@ -810,8 +809,6 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
                             && t.translations.name[scope.item.language] != null;
 
                         searchObj[scope.uniqueField] = t[scope.uniqueField];
-                        console.log('Search Obj:', searchObj); // Log the searchObj
-                        console.log('Find Result:', _.find(scope.item[scope.field], searchObj)); // Log the find result
 
                         if (searchFromTranslations) {
                             return t.translations.name[scope.item.language].toLowerCase().includes(termLower)
@@ -828,14 +825,13 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
 
                         const includesTerm = t.name.toLowerCase().includes(termLower)
                             || (t.user != null && t.user.username.toLowerCase().includes(termLower));
-                        console.log('Includes Term:', includesTerm); // Log the includesTerm flag
                         // make sure to skip the terms which are already added for ex:
                         // {qcode: "1", name: "Arbeidsliv", scheme: "subject_custom"}  is already added
                         // and if user search for "Arbeidsliv" again he shouln't get any search results
                         return includesTerm && !_.find(scope.item[scope.field], searchObj);
                     });
                     console.log('Filtered Terms:', filteredTerms);
-                    scope.terms = filteredTerms;
+                    scope.terms = $filter('sortByName')(filteredTerms);
                     scope.activeList = true;
                 }
                 return scope.terms;
@@ -904,7 +900,7 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
                     scope.openTree(term, $event);
                 } else if (term) {
                     addTerm(term);
-
+                    console.log("term in selectTerm", term)
                     if (includeParent) {
                         scope.termPath.forEach((_term) => {
                             addTerm(_term);
