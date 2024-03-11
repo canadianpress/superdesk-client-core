@@ -111,7 +111,7 @@ export function getExistingTags(article: IArticle): IServerResponse {
                     aliases,
                     original_source,
                 };
-
+                console.log("entity value:", entityItem)
                 return entityTag;
             });
         }

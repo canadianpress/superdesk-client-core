@@ -193,6 +193,7 @@ export function getAutoTaggingComponent(superdesk: ISuperdesk, label: string) {
     
         runAnalysis() {
             const dataBeforeLoading = this.state.data;
+            console.log("dataBeforeLoading", dataBeforeLoading)
 
             this.setState({data: 'loading'}, () => {
                 const {guid, language, headline, body_html, abstract, slugline} = this.props.article;
@@ -245,7 +246,7 @@ export function getAutoTaggingComponent(superdesk: ISuperdesk, label: string) {
         initializeData(preload: boolean) {
             try {
                 const existingTags = getExistingTags(this.props.article);
-
+                console.log("existingTags", existingTags)
                 if (Object.keys(existingTags).length > 0) {
                     const resClient = toClientFormat(existingTags);
 
@@ -782,6 +783,7 @@ export function getAutoTaggingComponent(superdesk: ISuperdesk, label: string) {
                                         />
                                     );
                                 } else {
+                                    console.log("else data", data)
                                     return (
                                         <Button
                                             aria-label="Refresh"

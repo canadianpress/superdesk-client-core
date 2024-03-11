@@ -782,24 +782,18 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
             scope.selectedTerm = '';
 
             scope.searchTerms = function(term) {
-                console.log('Term:', term); // Log the term
                 if (!term) {
                     scope.terms = filterSelected(scope.list);
-                    console.log('Terms:', scope.terms); // Log the terms
                     scope.activeList = false;
-                    console.log('Active List:', scope.activeList); // Log the activeList flag
                 } else {
                     let searchList;
 
                     if (disabledChildrenSearch) {
                         searchList = scope.list.filter((item) => !item.parent);
-                        console.log('disabledChildrenSearch Search List:', searchList); // Log the searchList
                     } else if (reloadList) {
                         searchList = scope.list;
-                        console.log('reloadList Search List:', searchList); // Log the searchList
                     } else {
                         searchList = scope.combinedList;
-                        console.log('else Search List:', searchList); // Log the searchList
                     }
                     let filteredTerms = _.filter(filterSelected(searchList), (t) => {
                         var searchObj = {};
@@ -830,7 +824,7 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
                         // and if user search for "Arbeidsliv" again he shouln't get any search results
                         return includesTerm && !_.find(scope.item[scope.field], searchObj);
                     });
-                    console.log('Filtered Terms:', filteredTerms);
+
                     scope.terms = $filter('sortByName')(filteredTerms);
                     scope.activeList = true;
                 }
@@ -849,10 +843,8 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
                     }
                 });
 
-                console.log('Selected:', selected); // Log the selected object
 
                 let filteredTerms = _.filter(terms, (term) => term && !selected[term[scope.uniqueField]]);
-                console.log('Filtered Terms in filterSelected:', filteredTerms); // Log the filtered terms
 
                 return filteredTerms;
             }
@@ -900,7 +892,6 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
                     scope.openTree(term, $event);
                 } else if (term) {
                     addTerm(term);
-                    console.log("term in selectTerm", term)
                     if (includeParent) {
                         scope.termPath.forEach((_term) => {
                             addTerm(_term);
