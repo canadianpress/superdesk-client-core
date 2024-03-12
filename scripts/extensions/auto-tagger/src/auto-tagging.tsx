@@ -260,8 +260,6 @@ export function getAutoTaggingComponent(superdesk: ISuperdesk, label: string) {
                     this.setState({
                         data: { original: { analysis: resClient }, changes: { analysis: resClient } },
                     });
-                }
-            }
                 } else if (preload) {
                     this.runAnalysis();
                 }
