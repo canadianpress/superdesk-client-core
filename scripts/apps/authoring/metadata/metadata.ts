@@ -784,6 +784,7 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
             scope.searchTerms = function(term) {
                 if (!term) {
                     scope.terms = filterSelected(scope.list);
+                    console.log("term is false", scope.terms)
                     scope.activeList = false;
                 } else {
                     let searchList;
@@ -795,14 +796,15 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
                     } else {
                         searchList = scope.combinedList;
                     }
+                    console.log("searchList", searchList)
                     let filteredTerms = _.filter(filterSelected(searchList), (t) => {
                         var searchObj = {};
                         const termLower = term.toLowerCase();
                         // if there are translations available search term from the translations
                         const searchFromTranslations = t.translations != null && t.translations.name != null
                             && t.translations.name[scope.item.language] != null;
-
-                        searchObj[scope.uniqueField] = t[scope.uniqueField];
+                            searchObj[scope.uniqueField] = t[scope.uniqueField];
+                            console.log
 
                         if (searchFromTranslations) {
                             return t.translations.name[scope.item.language].toLowerCase().includes(termLower)
@@ -845,7 +847,7 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
 
 
                 let filteredTerms = _.filter(terms, (term) => term && !selected[term[scope.uniqueField]]);
-
+                console.log("filteredTerms", filteredTerms);
                 return filteredTerms;
             }
 
