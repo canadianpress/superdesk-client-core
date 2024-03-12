@@ -247,16 +247,21 @@ export function getAutoTaggingComponent(superdesk: ISuperdesk, label: string) {
             try {
                 const existingTags = getExistingTags(this.props.article);
                 console.log("existingTags", existingTags);
-                // Check if existingTags has any keys and if existingTags.subject exists
-                if (Object.keys(existingTags).length > 0) {
-                // Check if existingTags.subject does include an object with a scheme of "subject"
-                if (existingTags.subject && existingTags.subject.some(s => s.scheme === 'subject')) {
+                // Check if existingTags.subject has any object with scheme value of subject and if organisation, person, event, place or object exists
+                if (Object.keys(existingTags).length > 0 && 
+                    (existingTags.subject && existingTags.subject.some(s => s.scheme === 'subject')) ||
+                    (Array.isArray(existingTags.organisation) && existingTags.organisation.length > 0) ||
+                    (Array.isArray(existingTags.person) && existingTags.person.length > 0) ||
+                    (Array.isArray(existingTags.event) && existingTags.event.length > 0) ||
+                    (Array.isArray(existingTags.place) && existingTags.place.length > 0) ||
+                    (Array.isArray(existingTags.object) && existingTags.object.length > 0)) {
                     const resClient = toClientFormat(existingTags);
                     console.log("resClient", resClient);
                     this.setState({
                         data: { original: { analysis: resClient }, changes: { analysis: resClient } },
                     });
                 }
+            }
                 } else if (preload) {
                     this.runAnalysis();
                 }
