@@ -651,6 +651,8 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
         },
         templateUrl: 'scripts/apps/authoring/metadata/views/metadata-terms.html',
         link: function MetaTermsDirectiveLink(scope, elem, attrs) {
+            console.log("Link function called");
+
             metadata.subjectScope = scope;
             scope.getLocaleName = metadata.getLocaleName;
             const reloadList = scope.reloadList === 'true';
@@ -667,6 +669,7 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
             scope.termPath = [];
 
             scope.$watch('unique', (value) => {
+                console.log("unique value changed to: ", value);
                 scope.uniqueField = value || 'qcode';
             });
 
@@ -678,6 +681,7 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
             }
 
             scope.$watchCollection('list', (items) => {
+                console.log("list collection changed: ", items);
                 if (!items || items.length === 0) {
                     return;
                 }
@@ -696,20 +700,21 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
                     } else {
                         tree[parent].push(item);
                     }
-                    // checks for dependent dropdowns to remain selected items if new list has them (not to reset)
+
                     angular.forEach(scope.item[scope.field], (selectedItem) => {
                         if (scope.cv && scope.cv.dependent) {
                             if (selectedItem.scheme === scope.cv._id) {
                                 if (item.name === selectedItem.name) {
                                     updates[scope.field].push(selectedItem);
                                 }
-                                // this is for subject (which is not dependent)
                             } else if (updates[scope.field].indexOf(selectedItem) === -1) {
                                 updates[scope.field].push(selectedItem);
                             }
                         }
                     });
                 });
+
+                console.log("Updates: ", updates);
 
                 _.extend(scope.item, updates);
 
@@ -721,6 +726,7 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
             });
 
             scope.$watch('item[field]', (selected) => {
+                console.log("item[field] changed: ", selected);
                 if (!selected) {
                     scope.selectedItems = [];
                     return;
@@ -804,8 +810,10 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
                         const searchFromTranslations = t.translations != null && t.translations.name != null
                             && t.translations.name[scope.item.language] != null;
                             searchObj[scope.uniqueField] = t[scope.uniqueField];
-                            console.log
-
+                            
+                        console.log("scope.uniqueField", scope.uniqueField)
+                        console.log("searchFromTranslations", searchFromTranslations)
+                        console.log("searchUnique", searchUnique)
                         if (searchFromTranslations) {
                             return t.translations.name[scope.item.language].toLowerCase().includes(termLower)
                                 && !_.find(scope.item[scope.field], searchObj);
@@ -821,12 +829,13 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
 
                         const includesTerm = t.name.toLowerCase().includes(termLower)
                             || (t.user != null && t.user.username.toLowerCase().includes(termLower));
+                        console.log("includesTerm 1", includesTerm)
                         // make sure to skip the terms which are already added for ex:
                         // {qcode: "1", name: "Arbeidsliv", scheme: "subject_custom"}  is already added
                         // and if user search for "Arbeidsliv" again he shouln't get any search results
                         return includesTerm && !_.find(scope.item[scope.field], searchObj);
                     });
-
+                    console.log("filteredTerms", filteredTerms)
                     scope.terms = $filter('sortByName')(filteredTerms);
                     scope.activeList = true;
                 }
@@ -836,18 +845,23 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
             function filterSelected(terms) {
                 var selected = {};
 
+                console.log("Initial terms: ", terms);
+
                 angular.forEach(scope.item[scope.field], (term) => {
                     if (term) {
                         if (scope.cv && scope.cv._id !== term.scheme) {
+                            console.log("Skipping term due to scheme mismatch: ", term);
                             return;
                         }
                         selected[term[scope.uniqueField]] = 1;
+                        console.log("Added to selected: ", term[scope.uniqueField]);
                     }
                 });
 
+                console.log("Selected terms: ", selected);
 
                 let filteredTerms = _.filter(terms, (term) => term && !selected[term[scope.uniqueField]]);
-                console.log("filteredTerms", filteredTerms);
+                console.log("Filtered terms: ", filteredTerms);
                 return filteredTerms;
             }
 
