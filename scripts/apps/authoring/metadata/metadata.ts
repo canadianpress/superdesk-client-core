@@ -814,8 +814,15 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
                         console.log("scope.uniqueField", scope.uniqueField)
                         console.log("searchFromTranslations", searchFromTranslations)
                         if (searchFromTranslations) {
-                            return t.translations.name[scope.item.language]
-                                && !_.find(scope.item[scope.field], searchObj);
+                            console.log("Searching from translations");
+
+                            const translationExists = t.translations.name[scope.item.language];
+                            console.log("Translation exists: ", translationExists);
+
+                            const itemFound = _.find(scope.item[scope.field], searchObj);
+                            console.log("Item found: ", itemFound);
+
+                            return translationExists && !itemFound;
                         }
 
                         if (searchUnique) {
