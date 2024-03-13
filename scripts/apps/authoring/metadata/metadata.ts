@@ -805,16 +805,19 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
                     let filteredTerms = _.filter(filterSelected(searchList), (t) => {
                         var searchObj = {};
                         const termLower = term.toLowerCase();
+                        console.log("Checking if t.translations.name is not null: ", t.translations && t.translations.name != null);
+                        console.log("t.translations.name[scope.item.language]: ", t.translations.name[scope.item.language]);
                         // if there are translations available search term from the translations
-                        const searchFromTranslations = t.translations != null && t.translations.name != null
+                        let searchFromTranslations = t.translations != null && t.translations.name != null
                             && t.translations.name[scope.item.language] != null;
-
+                            
+                        console.log("searchFromTranslations", searchFromTranslations)
+                        searchFromTranslations = true;
                         searchObj[scope.uniqueField] = t[scope.uniqueField];
                         console.log("After setting searchObj: ", searchObj);
                         console.log("Value set to searchObj: ", t[scope.uniqueField]);
                             
                         console.log("scope.uniqueField", scope.uniqueField)
-                        console.log("searchFromTranslations", searchFromTranslations)
                         if (searchFromTranslations) {
                             console.log("Searching from translations");
 
