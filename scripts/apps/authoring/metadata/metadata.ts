@@ -812,8 +812,9 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
                         const termLower = term.toLowerCase();
                         console.log("Term in lowercase: ", termLower);
 
-                        const searchFromTranslations = t.translations != null && t.translations.name != null
-                            && t.translations.name[scope.item.language] != null;
+                        const searchFromTranslations = true;
+                        // const searchFromTranslations = t.translations != null && t.translations.name != null
+                        //     && t.translations.name[scope.item.language] != null;
 
                         console.log("Search from translations: ", searchFromTranslations);
 
