@@ -805,6 +805,7 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
                     let filteredTerms = _.filter(filterSelected(searchList), (t) => {
                         var searchObj = {};
                         const termLower = term.toLowerCase();
+                        console.log("termLower", termLower)
                         console.log("Checking if t.translations.name is not null: ", t.translations && t.translations.name != null);
                         console.log("t.translations.name[scope.item.language]: ", t.translations.name[scope.item.language]);
                         console.log("t.translations.name[en-CA]: ", t.translations.name["en-CA"]);
@@ -823,7 +824,7 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
                         if (searchFromTranslations) {
                             console.log("Searching from translations");
 
-                            let translationExists = t.translations.name[scope.item.language];
+                            let translationExists = t.translations.name[scope.item.language].toLowerCase().includes(termLower)
                             console.log("Translation exists: 1", translationExists);
                             translationExists = t.translations.name["en-CA"];
                             console.log("Translation exists: 2", translationExists);
@@ -832,7 +833,7 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
                             console.log("Item found: ", itemFound);
 
                             // return translationExists && !itemFound;
-                            return !itemFound;
+                            return translationExists && !itemFound;
                         }
 
                         if (searchUnique) {
