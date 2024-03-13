@@ -824,7 +824,7 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
                         if (searchFromTranslations) {
                             console.log("Searching from translations");
 
-                            let translationExists = t.translations.name[scope.item.language].toLowerCase().includes(termLower)
+                            let translationExists = t.translations.name["en-CA"].toLowerCase().includes(termLower)
                             console.log("Translation exists: 1", translationExists);
                             translationExists = t.translations.name["en-CA"];
                             console.log("Translation exists: 2", translationExists);

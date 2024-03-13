@@ -32,12 +32,12 @@ export const IDENTITY_KEY = 'sess:user';
 
 export function getUserInterfaceLanguage() {
     const user: IUser | null = JSON.parse(localStorage.getItem(IDENTITY_KEY));
-    const language = user?.language ?? appConfig.default_language ?? window.navigator.language ?? 'en-CA';
+    const language = user?.language ?? appConfig.default_language ?? window.navigator.language ?? 'en';
 
     if (appConfig.profileLanguages.includes(language)) {
         return language;
     } else {
-        return 'en-CA';
+        return 'en';
     }
 }
 
