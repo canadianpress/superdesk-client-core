@@ -811,10 +811,14 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
                         var searchObj = {};
                         const termLower = term.toLowerCase();
                         console.log("Term in lowercase: ", termLower);
+                        console.log("Initial scope.item.language: ", scope.item.language);
 
-                        const searchFromTranslations = true;
-                        // const searchFromTranslations = t.translations != null && t.translations.name != null
-                        //     && t.translations.name[scope.item.language] != null;
+                        if (scope.item.language === "en") {
+                            scope.item.language = "en-CA";
+                            console.log("Updated scope.item.language: ", scope.item.language);
+                        }
+                        const searchFromTranslations = t.translations != null && t.translations.name != null
+                            && t.translations.name[scope.item.language] != null;
 
                         console.log("Search from translations: ", searchFromTranslations);
 
