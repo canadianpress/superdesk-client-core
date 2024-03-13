@@ -37,7 +37,7 @@ export function getUserInterfaceLanguage() {
     if (appConfig.profileLanguages.includes(language)) {
         return language;
     } else {
-        return 'en';
+        return 'en-CA';
     }
 }
 
