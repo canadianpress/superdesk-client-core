@@ -790,7 +790,6 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
             scope.searchTerms = function(term) {
                 if (!term) {
                     scope.terms = filterSelected(scope.list);
-                    console.log("term is false", scope.terms)
                     scope.activeList = false;
                 } else {
                     let searchList;
@@ -809,13 +808,13 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
                         // if there are translations available search term from the translations
                         const searchFromTranslations = t.translations != null && t.translations.name != null
                             && t.translations.name[scope.item.language] != null;
-                            searchObj[scope.uniqueField] = t[scope.uniqueField];
+
+                        searchObj[scope.uniqueField] = t[scope.uniqueField];
                             
                         console.log("scope.uniqueField", scope.uniqueField)
                         console.log("searchFromTranslations", searchFromTranslations)
-                        console.log("searchUnique", searchUnique)
                         if (searchFromTranslations) {
-                            return t.translations.name[scope.item.language].toLowerCase().includes(termLower)
+                            return t.translations.name[scope.item.language]
                                 && !_.find(scope.item[scope.field], searchObj);
                         }
 
@@ -829,7 +828,7 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
 
                         const includesTerm = t.name.toLowerCase().includes(termLower)
                             || (t.user != null && t.user.username.toLowerCase().includes(termLower));
-                        console.log("includesTerm 1", includesTerm)
+
                         // make sure to skip the terms which are already added for ex:
                         // {qcode: "1", name: "Arbeidsliv", scheme: "subject_custom"}  is already added
                         // and if user search for "Arbeidsliv" again he shouln't get any search results
