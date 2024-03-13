@@ -810,6 +810,8 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
                             && t.translations.name[scope.item.language] != null;
 
                         searchObj[scope.uniqueField] = t[scope.uniqueField];
+                        console.log("After setting searchObj: ", searchObj);
+                        console.log("Value set to searchObj: ", t[scope.uniqueField]);
                             
                         console.log("scope.uniqueField", scope.uniqueField)
                         console.log("searchFromTranslations", searchFromTranslations)
@@ -852,7 +854,7 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
                 var selected = {};
 
                 console.log("Initial terms: ", terms);
-
+                console.log("scope.item[scope.field]", scope.item[scope.field])
                 angular.forEach(scope.item[scope.field], (term) => {
                     if (term) {
                         if (scope.cv && scope.cv._id !== term.scheme) {
