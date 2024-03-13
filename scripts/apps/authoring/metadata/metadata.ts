@@ -807,11 +807,13 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
                         const termLower = term.toLowerCase();
                         console.log("Checking if t.translations.name is not null: ", t.translations && t.translations.name != null);
                         console.log("t.translations.name[scope.item.language]: ", t.translations.name[scope.item.language]);
+                        console.log("t.translations.name[en-CA]: ", t.translations.name["en-CA"]);
                         // if there are translations available search term from the translations
                         let searchFromTranslations = t.translations != null && t.translations.name != null
                             && t.translations.name[scope.item.language] != null;
                             
                         console.log("searchFromTranslations", searchFromTranslations)
+                        console.log("scope.item.language", scope.item.language)
                         searchFromTranslations = true;
                         searchObj[scope.uniqueField] = t[scope.uniqueField];
                         console.log("After setting searchObj: ", searchObj);
@@ -821,13 +823,16 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
                         if (searchFromTranslations) {
                             console.log("Searching from translations");
 
-                            const translationExists = t.translations.name[scope.item.language];
-                            console.log("Translation exists: ", translationExists);
-
+                            let translationExists = t.translations.name[scope.item.language];
+                            console.log("Translation exists: 1", translationExists);
+                            translationExists = t.translations.name["en-CA"];
+                            console.log("Translation exists: 2", translationExists);
+                            console.log("scope.field", scope.field)
                             const itemFound = _.find(scope.item[scope.field], searchObj);
                             console.log("Item found: ", itemFound);
 
-                            return translationExists && !itemFound;
+                            // return translationExists && !itemFound;
+                            return !itemFound;
                         }
 
                         if (searchUnique) {
