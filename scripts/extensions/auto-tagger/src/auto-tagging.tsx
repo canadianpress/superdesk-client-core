@@ -247,7 +247,8 @@ export function getAutoTaggingComponent(superdesk: ISuperdesk, label: string) {
             try {
                 const existingTags = getExistingTags(this.props.article);
                 console.log("existingTags", existingTags);
-                // Check if existingTags.subject has any object with scheme value of subject and if organisation, person, event, place or object exists
+                // Check if existingTags.subject has any object with scheme value of subject or if organisation or person or event or place or object exists
+                // Added check because of destinations and distribution scheme values are present in subject array which causes the empty data to be shown
                 if (Object.keys(existingTags).length > 0 && 
                     (existingTags.subject && existingTags.subject.some(s => s.scheme === 'subject')) ||
                     (Array.isArray(existingTags.organisation) && existingTags.organisation.length > 0) ||
