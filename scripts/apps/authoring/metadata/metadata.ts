@@ -651,7 +651,6 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
         },
         templateUrl: 'scripts/apps/authoring/metadata/views/metadata-terms.html',
         link: function MetaTermsDirectiveLink(scope, elem, attrs) {
-            console.log("Link function called");
 
             metadata.subjectScope = scope;
             scope.getLocaleName = metadata.getLocaleName;
@@ -669,7 +668,6 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
             scope.termPath = [];
 
             scope.$watch('unique', (value) => {
-                console.log("unique value changed to: ", value);
                 scope.uniqueField = value || 'qcode';
             });
 
@@ -681,7 +679,6 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
             }
 
             scope.$watchCollection('list', (items) => {
-                console.log("list collection changed: ", items);
                 if (!items || items.length === 0) {
                     return;
                 }
@@ -714,7 +711,6 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
                     });
                 });
 
-                console.log("Updates: ", updates);
 
                 _.extend(scope.item, updates);
 
@@ -726,7 +722,6 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
             });
 
             scope.$watch('item[field]', (selected) => {
-                console.log("item[field] changed: ", selected);
                 if (!selected) {
                     scope.selectedItems = [];
                     return;
@@ -788,15 +783,14 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
             scope.selectedTerm = '';
 
             scope.searchTerms = function(term) {
-                console.log("Initial term: ", term);
-                console.log("Initial scope.item.language: ", scope.item.language);
-
+                // If term is not provided, filter the list and set activeList to false
                 if (!term) {
                     scope.terms = filterSelected(scope.list);
                     scope.activeList = false;
                 } else {
                     let searchList;
 
+                    // Depending on the conditions, set the searchList accordingly
                     if (disabledChildrenSearch) {
                         searchList = scope.list.filter((item) => !item.parent);
                     } else if (reloadList) {
@@ -805,65 +799,50 @@ function MetaTermsDirective(metadata, $filter, $timeout, preferencesService, des
                         searchList = scope.combinedList;
                     }
 
-                    console.log("Search list: ", searchList);
-
+                    // Filter the searchList based on the term
                     let filteredTerms = _.filter(filterSelected(searchList), (t) => {
                         var searchObj = {};
                         const termLower = term.toLowerCase();
-                        console.log("Term in lowercase: ", termLower);
-                        console.log("Initial scope.item.language: ", scope.item.language);
 
+                        // If language is 'en', change it to 'en-CA'
                         if (scope.item.language === "en") {
                             scope.item.language = "en-CA";
-                            console.log("Updated scope.item.language: ", scope.item.language);
                         }
+
+                        // Check if translations exist for the current language
                         const searchFromTranslations = t.translations != null && t.translations.name != null
                             && t.translations.name[scope.item.language] != null;
 
-                        console.log("Search from translations: ", searchFromTranslations);
-
                         searchObj[scope.uniqueField] = t[scope.uniqueField];
-                        console.log("Search object: ", searchObj);
 
+                        // If translations exist, check if the term exists in translations and is not already selected
                         if (searchFromTranslations) {
-                            console.log("Searching from translations");
                             const translationExists = t.translations.name[scope.item.language].toLowerCase().includes(termLower);
-                            console.log("Translation exists: ", translationExists);
-
                             const itemFound = _.find(scope.item[scope.field], searchObj);
-                            console.log("Item found: ", itemFound);
-
                             return translationExists && !itemFound;
                         }
 
+                        // If searchUnique is true, check if the term exists in name or uniqueField and is not already selected
                         if (searchUnique) {
-                            console.log("Searching unique");
                             const nameMatch = t.name.toLowerCase().includes(termLower);
-                            console.log("Name match: ", nameMatch);
-
                             const uniqueFieldMatch = t[scope.uniqueField].toLowerCase().includes(termLower);
-                            console.log("Unique field match: ", uniqueFieldMatch);
-
                             const itemFound = _.find(scope.item[scope.field], searchObj);
-                            console.log("Item found: ", itemFound);
-
                             return nameMatch || uniqueFieldMatch && !itemFound;
                         }
 
+                        // Check if the term exists in name or username and is not already selected
                         const nameMatch = t.name.toLowerCase().includes(termLower);
-                        console.log("Name match: ", nameMatch);
-
                         const userMatch = t.user != null && t.user.username.toLowerCase().includes(termLower);
-                        console.log("User match: ", userMatch);
-
                         const itemFound = _.find(scope.item[scope.field], searchObj);
-                        console.log("Item found: ", itemFound);
-
                         return nameMatch || userMatch && !itemFound;
                     });
+
+                    // Set activeList to true and sort the filtered terms by name
                     scope.activeList = true;
                     scope.terms = $filter('sortByName')(filteredTerms);
                 }
+
+                // Return the terms
                 return scope.terms;
             };
 
