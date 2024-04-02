@@ -723,10 +723,13 @@ msgstr "Planification ad hoc"
 #: scripts/core/editor3/highlightsConfig.ts:25
 #: scripts/extensions/auto-tagging-widget/dist/src/auto-tagging.js:336
 #: scripts/extensions/auto-tagging-widget/dist/src/new-item.js:98
-#: scripts/extensions/auto-tagging-widget/src/auto-tagging.tsx:569
 #: scripts/extensions/auto-tagging-widget/src/new-item.tsx:217
 msgid "Add"
 msgstr "Ajouter"
+
+#: scripts/extensions/auto-tagging-widget/src/auto-tagging.tsx:590
+msgid "Add a tag"
+msgstr "Ajouter un tag"
 
 #: scripts/apps/dictionaries/views/dictionary-config-modal.html:92
 msgid "Add Abbreviation"
@@ -941,8 +944,8 @@ msgstr "Ajouter une description"
 
 #: scripts/extensions/auto-tagging-widget/dist/src/new-item.js:50
 #: scripts/extensions/auto-tagging-widget/src/new-item.tsx:74
-msgid "Add entity"
-msgstr "Ajouter entité"
+msgid "Add tag"
+msgstr "Ajouter tag"
 
 #: ../superdesk-planning/client/components/ContentProfiles/FieldTab/FieldList.tsx:126
 msgid "Add field after"
@@ -2982,8 +2985,8 @@ msgstr "Fermer les séances"
 
 #: scripts/extensions/auto-tagging-widget/dist/src/auto-tagging.js:349
 #: scripts/extensions/auto-tagging-widget/src/auto-tagging.tsx:597
-msgid "Click \"Run\" to generate"
-msgstr ""
+msgid "Click \"Run\" test Autotagger"
+msgstr "Cliquez sur \"Exécuter\" pour tester l'Autotagger"
 
 #: scripts/apps/ingest/views/settings/ingest-routing-content.html:111
 msgid "Click on a Scheme rules on the left to view details."
@@ -5512,18 +5515,18 @@ msgstr "Entrer l'adresse URL"
 
 #: scripts/extensions/auto-tagging-widget/dist/src/new-item.js:36
 #: scripts/extensions/auto-tagging-widget/src/new-item.tsx:58
-msgid "Entity"
-msgstr "Entité"
+msgid "Tag"
+msgstr "Tag"
 
 #: scripts/extensions/auto-tagging-widget/dist/src/new-item.js:60
 #: scripts/extensions/auto-tagging-widget/src/new-item.tsx:135
-msgid "Entity type"
-msgstr "Type d'entité"
+msgid "Tag type"
+msgstr "Type de tag"
 
 #: scripts/extensions/auto-tagging-widget/dist/src/new-item.js:83
 #: scripts/extensions/auto-tagging-widget/src/new-item.tsx:195
-msgid "Entity type is required."
-msgstr "Un type d'entité est requis."
+msgid "Tag type is required."
+msgstr "Un type de tag est requis."
 
 #: ../superdesk-planning/client/components/UI/IconSelectButton/icons.ts:74
 msgid "Envelope"
