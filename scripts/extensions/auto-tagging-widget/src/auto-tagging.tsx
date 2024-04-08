@@ -484,14 +484,14 @@ export function getAutoTaggingComponent(superdesk: ISuperdesk, label: string) {
                                                 items={[]}
                                                 search={(searchString, callback) => {
                                                     let cancelled = false;
-
+                                                    const language = this.props.article.language;
                                                     httpRequestJsonLocal<IAutoTaggingSearchResult>({
                                                         method: 'POST',
                                                         path: '/ai_data_op/',
                                                         payload: {
                                                             service: 'imatrics',
                                                             operation: 'search',
-                                                            data: {term: searchString},
+                                                            data: {term: searchString, language: language},
                                                         },
                                                     }).then((res) => {
                                                         if (cancelled !== true) {
