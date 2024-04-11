@@ -84,7 +84,7 @@ angular.module('superdesk.apps.authoring', [
     'superdesk.apps.vocabularies',
     'superdesk.apps.relations',
     'contenteditable',
-    'decipher.history',
+    // 'decipher.history',
     'superdesk.config',
     mediaModule.name,
 ])
