@@ -1,4 +1,4 @@
-// import 'angular-history/history';
+import 'libs/angular-history/history';
 
 import * as svc from './services';
 import * as directive from './directives';
@@ -84,7 +84,7 @@ angular.module('superdesk.apps.authoring', [
     'superdesk.apps.vocabularies',
     'superdesk.apps.relations',
     'contenteditable',
-    // 'decipher.history',
+    'decipher.history',
     'superdesk.config',
     mediaModule.name,
 ])
