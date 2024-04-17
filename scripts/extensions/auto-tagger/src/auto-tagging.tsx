@@ -166,7 +166,10 @@ export function getAutoTaggingComponent(superdesk: ISuperdesk, label: string) {
         private isDirty: (a: IAutoTaggingResponse, b: Partial<IAutoTaggingResponse>) => boolean;
         private _mounted: boolean;
         private semaphoreFields = superdesk.instance.config.semaphoreFields ?? {entities: {}, others: {}};
-
+        private replaceAmpersand(input: string) {
+            return input.replace(/&/g, 'and');
+        }
+        
         constructor(props: IProps) {
             super(props);
 
@@ -197,7 +200,11 @@ export function getAutoTaggingComponent(superdesk: ISuperdesk, label: string) {
 
             this.setState({data: 'loading'}, () => {
                 const {guid, language, headline, body_html, abstract, slugline} = this.props.article;
-
+                console.log("headline", headline);
+                console.log("slugline", slugline);
+                // Apply the ampersand replacement
+                const safeHeadline = this.replaceAmpersand(headline);
+                const safeSlugline = this.replaceAmpersand(slugline);
                 httpRequestJsonLocal<{analysis: IServerResponse}>({
                     method: 'POST',
                     path: '/ai/',
@@ -206,8 +213,8 @@ export function getAutoTaggingComponent(superdesk: ISuperdesk, label: string) {
                         item: {
                             guid,
                             language,
-                            slugline,
-                            headline,
+                            slugline: safeSlugline,
+                            headline: safeHeadline,
                             body_html,
                             abstract,
                         },
