@@ -205,6 +205,8 @@ export function getAutoTaggingComponent(superdesk: ISuperdesk, label: string) {
                 // Apply the ampersand replacement
                 const safeHeadline = this.replaceAmpersand(headline);
                 const safeSlugline = this.replaceAmpersand(slugline);
+                console.log("safeHeadline", safeHeadline);
+                console.log("safeSlugline", safeSlugline);
                 httpRequestJsonLocal<{analysis: IServerResponse}>({
                     method: 'POST',
                     path: '/ai/',
