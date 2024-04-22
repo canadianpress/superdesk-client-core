@@ -722,6 +722,10 @@ msgstr ""
 msgid "Add a tag"
 msgstr ""
 
+#: scripts/extensions/auto-tagging-widget/src/auto-tagging.tsx:546
+msgid "Search for an entity or subject"
+msgstr ""
+
 #: scripts/apps/dictionaries/views/dictionary-config-modal.html:92
 msgid "Add Abbreviation"
 msgstr ""

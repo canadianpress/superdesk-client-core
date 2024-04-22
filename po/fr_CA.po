@@ -731,6 +731,10 @@ msgstr "Ajouter"
 msgid "Add a tag"
 msgstr "Ajouter un tag"
 
+#: scripts/extensions/auto-tagging-widget/src/auto-tagging.tsx:546
+msgid "Search for an entity or subject"
+msgstr "Recherchez une entité ou un sujet"
+
 #: scripts/apps/dictionaries/views/dictionary-config-modal.html:92
 msgid "Add Abbreviation"
 msgstr "Ajouter une abréviation"
