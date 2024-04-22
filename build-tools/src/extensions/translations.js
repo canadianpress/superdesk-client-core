@@ -9,6 +9,7 @@ const {isDirectory} = require('../utils');
 const compileTranslationsPoToJson = require('../po-to-json/index');
 
 function mergeTranslationsFromExtensions(clientDir) {
+    console.log('Merging translations from extensions', clientDir);
     const translationsJsonTemp = path.join(clientDir, 'translations-json-temp');
     const mainTranslationsDir = path.join(clientDir, 'dist/languages');
 
@@ -45,6 +46,7 @@ function mergeTranslationsFromExtensions(clientDir) {
         // iterate over language files like fr_CA.json
         for (const fileNameMaybe of fs.readdirSync(translationsJsonTemp)) {
             if (isDirectory(fileNameMaybe)) {
+                console.log('Skipping directory:', fileNameMaybe);
                 break;
             }
 
@@ -56,7 +58,11 @@ function mergeTranslationsFromExtensions(clientDir) {
                 const jsonSrc = JSON.parse(fs.readFileSync(filePathAbs, 'utf-8'));
                 const destFilePath = path.join(mainTranslationsDir, language + '.json');
                 const jsonDest = JSON.parse(fs.readFileSync(destFilePath, 'utf-8'));
-
+                console.log('Merging translations for language:', language);
+                console.log('Source:', filePathAbs);
+                console.log('Destination:', destFilePath);
+                console.log('Source keys:', Object.keys(jsonSrc));
+                console.log('Destination keys:', Object.keys(jsonDest));
                 for (const key in jsonSrc) {
                     if (key === '' || jsonDest[key] != null) {
                         continue; // do not overwrite meta info or existing translations

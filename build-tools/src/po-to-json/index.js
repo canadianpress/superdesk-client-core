@@ -84,7 +84,7 @@ function compileTranslationsPoToJson(translationsPoDir, translationsJsonDir) {
     }
 
     var files = fs.readdirSync(translationsPoDir);
-
+    console.log('files', files)
     files.forEach((filename) => {
         if (isDirectory(path.join(translationsPoDir, filename))) {
             return;
@@ -97,7 +97,7 @@ function compileTranslationsPoToJson(translationsPoDir, translationsJsonDir) {
         var po2json = `${getModuleDir('gettext.js')}/bin/po2json`;
         var poFile = `${translationsPoDir}/${filename}`;
         var jsonFile = `${translationsJsonDir}/${filename.replace('.po', '.json')}`;
-
+        console.log(`Compiling ${poFile} to ${jsonFile}`);
         execSync(
             `${po2json} ${poFile} ${jsonFile}`,
             {stdio: 'inherit'}
