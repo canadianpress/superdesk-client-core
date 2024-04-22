@@ -543,7 +543,7 @@ export function getAutoTaggingComponent(superdesk: ISuperdesk, label: string) {
                                                     key={this.state.forceRenderKey}
                                                     keyValue="keyValue"
                                                     items={[]}
-                                                    placeholder="Search for an entity or subject"
+                                                    placeholder={gettext('Search for an entity or subject')}
                                                     search={(searchString, callback) => {
                                                         let cancelled = false;
                                                         

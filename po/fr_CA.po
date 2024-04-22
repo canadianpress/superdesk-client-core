@@ -3050,6 +3050,10 @@ msgstr "Cliquez sur Exécuter pour tester l'Étiquetage automatique"
 msgid "Add a tag"
 msgstr "Ajouter une nouvelle étiquette"
 
+#: scripts/extensions/auto-tagging-widget/src/auto-tagging.tsx:546
+msgid "Search for an entity or subject"
+msgstr "Recherchez une entité ou un sujet"
+
 #: scripts/apps/ingest/views/settings/ingest-routing-content.html:111
 msgid "Click on a Scheme rules on the left to view details."
 msgstr ""
