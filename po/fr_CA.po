@@ -12316,7 +12316,7 @@ msgstr "Ensemble de règles"
 #: scripts/extensions/auto-tagging-widget/dist/src/auto-tagging.js:393
 #: scripts/extensions/auto-tagging-widget/src/auto-tagging.tsx:723
 msgid "Run"
-msgstr ""
+msgstr "Exécuter"
 
 #: ../superdesk-analytics/client/saved_reports/views/save-generate-report.html:18
 msgid "Run Report"
