@@ -35,6 +35,11 @@ export function getUserInterfaceLanguage() {
     console.log('user', user);
     const language = user?.language ?? appConfig.default_language ?? window.navigator.language ?? 'en';
     console.log('language', language);
+    // TODO: Check if the problem is with underscore or with the language
+    if(language === 'fr_CA') {
+        return 'fr-CA';
+    }
+    console.log('appConfig.profileLanguages', appConfig.profileLanguages);
 
     if (appConfig.profileLanguages.includes(language)) {
         return language;
