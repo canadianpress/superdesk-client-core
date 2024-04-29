@@ -196,17 +196,13 @@ export function getAutoTaggingComponent(superdesk: ISuperdesk, label: string) {
     
         runAnalysis() {
             const dataBeforeLoading = this.state.data;
-            console.log("dataBeforeLoading", dataBeforeLoading)
 
             this.setState({data: 'loading'}, () => {
                 const {guid, language, headline, body_html, abstract, slugline} = this.props.article;
-                console.log("headline", headline);
-                console.log("slugline", slugline);
                 // Apply the ampersand replacement
                 const safeHeadline = this.replaceAmpersand(headline);
                 const safeSlugline = this.replaceAmpersand(slugline);
-                console.log("safeHeadline", safeHeadline);
-                console.log("safeSlugline", safeSlugline);
+
                 httpRequestJsonLocal<{analysis: IServerResponse}>({
                     method: 'POST',
                     path: '/ai/',
@@ -255,7 +251,7 @@ export function getAutoTaggingComponent(superdesk: ISuperdesk, label: string) {
         initializeData(preload: boolean) {
             try {
                 const existingTags = getExistingTags(this.props.article);
-                console.log("existingTags", existingTags);
+
                 // Check if existingTags.subject has any object with scheme value of subject or if organisation or person or event or place or object exists
                 // Added check because of destinations and distribution scheme values are present in subject array which causes the empty data to be shown
                 if (Object.keys(existingTags).length > 0 && 
@@ -266,7 +262,7 @@ export function getAutoTaggingComponent(superdesk: ISuperdesk, label: string) {
                     (Array.isArray(existingTags.place) && existingTags.place.length > 0) ||
                     (Array.isArray(existingTags.object) && existingTags.object.length > 0)) {
                     const resClient = toClientFormat(existingTags);
-                    console.log("resClient", resClient);
+
                     this.setState({
                         data: { original: { analysis: resClient }, changes: { analysis: resClient } },
                     });
@@ -800,7 +796,6 @@ export function getAutoTaggingComponent(superdesk: ISuperdesk, label: string) {
                                         />
                                     );
                                 } else {
-                                    console.log("else data", data)
                                     return (
                                         <Button
                                             aria-label="Refresh"

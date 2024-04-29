@@ -149,7 +149,6 @@ export function toServerFormat(items: OrderedMap<string, ITagUi>, superdesk: ISu
             if (result.subject == null) {
                 result.subject = [];
             }
-            console.log("scheme items", item)
             const {name, description, qcode, source, altids, aliases, original_source, parent} = item;
             const subjectTag: ISubjectTag = {
                 name,
