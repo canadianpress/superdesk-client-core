@@ -198,7 +198,7 @@ export function getAutoTaggingComponent(superdesk: ISuperdesk, label: string) {
             const dataBeforeLoading = this.state.data;
 
             this.setState({data: 'loading'}, () => {
-                const {guid, language, headline, body_html, headline_extended, slugline} = this.props.article;
+                const {guid, language, headline, body_html, abstract, slugline} = this.props.article;
                 // Apply the ampersand replacement
                 const safeHeadline = this.replaceAmpersand(headline);
                 const safeSlugline = this.replaceAmpersand(slugline);
@@ -214,7 +214,7 @@ export function getAutoTaggingComponent(superdesk: ISuperdesk, label: string) {
                             slugline: safeSlugline,
                             headline: safeHeadline,
                             body_html,
-                            abstract: headline_extended,
+                            abstract,
                         },
                     },
                 }).then((res) => {
