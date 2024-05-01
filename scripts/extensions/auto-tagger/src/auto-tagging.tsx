@@ -586,20 +586,16 @@ export function getAutoTaggingComponent(superdesk: ISuperdesk, label: string) {
                                                         const _item: ITagUi = __item.tag;
 
                                                         return (
-                                                            <div className="auto-tagging-widget__autocomplete-item">
+                                                            <div className="auto-tagging-widget__autocomplete-item" aria-label={`Item name ${_item.name}`}>
                                                                 <b>{_item.name}</b>
 
-                                                                {
-                                                                    _item?.group?.value == null ? null : (
-                                                                        <p>{_item.group.value}</p>
-                                                                    )
-                                                                }
+                                                                {_item?.group?.value ? (
+                                                                    <p aria-label={`Group: ${_item.group.value}`}>{_item.group.value}</p>
+                                                                ) : null}
 
-                                                                {
-                                                                    _item?.description == null ? null : (
-                                                                        <p>{_item.description}</p>
-                                                                    )
-                                                                }
+                                                                {_item?.description ? (
+                                                                    <p aria-label={`Description: ${_item.description}`}>{_item.description}</p>
+                                                                ) : null}
                                                             </div>
                                                         );
                                                     }}
