@@ -549,7 +549,8 @@ export function getAutoTaggingComponent(superdesk: ISuperdesk, label: string) {
                                                             payload: {
                                                                 service: 'semaphore',
                                                                 item: {
-                                                                    searchString
+                                                                    searchString,
+                                                                    language: this.props.article.language
                                                                 },
                                                             },
                                                         }).then((res) => {
