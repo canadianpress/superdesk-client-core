@@ -112,6 +112,7 @@ export function getExistingTags(article: IArticle): IServerResponse {
                     qcode,
                     source,
                     relevance: score, // Assign 'score' to 'relevance'
+                    creator,
                     altids: altids ?? {},
                     parent,
                     scheme,
