@@ -65,6 +65,8 @@ export function getExistingTags(article: IArticle): IServerResponse {
                         description,
                         qcode,
                         source,
+                        score,
+                        creator,
                         altids,
                         scheme,
                         aliases,
@@ -77,6 +79,8 @@ export function getExistingTags(article: IArticle): IServerResponse {
                         description,
                         qcode,
                         source,
+                        relevance: score, // Assign 'score' to 'relevance'
+                        creator,
                         altids: altids ?? {},
                         parent,
                         scheme,
@@ -92,6 +96,8 @@ export function getExistingTags(article: IArticle): IServerResponse {
                     name,
                     description,
                     qcode,
+                    score,
+                    creator,
                     source,
                     altids,
                     scheme,
@@ -105,6 +111,7 @@ export function getExistingTags(article: IArticle): IServerResponse {
                     description,
                     qcode,
                     source,
+                    relevance: score, // Assign 'score' to 'relevance'
                     altids: altids ?? {},
                     parent,
                     scheme,
@@ -112,6 +119,7 @@ export function getExistingTags(article: IArticle): IServerResponse {
                     original_source,
                 };
                 console.log("entity value:", entityItem)
+                console.log("entity tag:", entityTag)
                 return entityTag;
             });
         }

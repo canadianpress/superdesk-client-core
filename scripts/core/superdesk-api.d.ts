@@ -2316,6 +2316,8 @@ declare module 'superdesk-api' {
         description?: string;
         qcode: string;
         scheme?: string;
+        score?: string;
+        creator?: string;
         translations?: {};
         altids?: {[key: string]: string};
         aliases?: Array<string>;
