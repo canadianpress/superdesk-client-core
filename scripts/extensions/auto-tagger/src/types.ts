@@ -2,8 +2,8 @@ export interface ITagUi {
     name: string;
     description?: string;
     qcode: string;
-    score: string;
-    creator: string;
+    score?: string;
+    creator?: string;
     source?: string;
     original_source?: string;
     aliases?: Array<string>;
