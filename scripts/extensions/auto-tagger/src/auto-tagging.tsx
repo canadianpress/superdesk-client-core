@@ -302,13 +302,15 @@ export function getAutoTaggingComponent(superdesk: ISuperdesk, label: string) {
                 name: _title,
                 description: newItem.description,
                 source: 'manual',
+                creator: "Human",
+                score: "0.47",
                 altids: {},
                 group: {
                     ...newItem.group,
                     kind: groupKind
                 },
                 scheme: newItem.group.value,
-                original_source: 'human',
+                original_source: 'Human',
             };
 
             this.updateTags(
