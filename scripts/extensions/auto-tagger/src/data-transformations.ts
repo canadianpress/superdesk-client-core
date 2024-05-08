@@ -58,14 +58,14 @@ export function getExistingTags(article: IArticle): IServerResponse {
         if (key === 'subject') {
             if (values.length > 0) {
                 result[key] = values
-                .filter(subjectItem => subjectItem.scheme != null) // Only include items with a scheme
-                .map(subjectItem => {
+                .filter((subjectItem: any): subjectItem is ISubjectTag => subjectItem.scheme != null) // Only include items with a scheme
+                .map((subjectItem: ISubjectTag) => {
                     const {
                         name,
                         description,
                         qcode,
                         source,
-                        score,
+                        relevance,
                         creator,
                         altids,
                         scheme,
@@ -79,7 +79,7 @@ export function getExistingTags(article: IArticle): IServerResponse {
                         description,
                         qcode,
                         source,
-                        relevance: score, // Assign 'score' to 'relevance'
+                        relevance, // Assign 'score' to 'relevance'
                         creator,
                         altids: altids ?? {},
                         parent,
@@ -91,12 +91,12 @@ export function getExistingTags(article: IArticle): IServerResponse {
                 });
             }
         } else if (values.length > 0) {
-            result[key] = values.map((entityItem) => {
+            result[key] = values.map((entityItem: any) => {
                 const {
                     name,
                     description,
                     qcode,
-                    score,
+                    relevance,
                     creator,
                     source,
                     altids,
@@ -111,7 +111,7 @@ export function getExistingTags(article: IArticle): IServerResponse {
                     description,
                     qcode,
                     source,
-                    relevance: score, // Assign 'score' to 'relevance'
+                    relevance, // Assign 'score' to 'relevance'
                     creator,
                     altids: altids ?? {},
                     parent,
@@ -119,7 +119,6 @@ export function getExistingTags(article: IArticle): IServerResponse {
                     aliases,
                     original_source,
                 };
-                console.log("entity value:", entityItem)
                 console.log("entity tag:", entityTag)
                 return entityTag;
             });
