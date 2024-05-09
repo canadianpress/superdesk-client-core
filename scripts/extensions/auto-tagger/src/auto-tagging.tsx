@@ -215,7 +215,7 @@ export function getAutoTaggingComponent(superdesk: ISuperdesk, label: string) {
                             slugline: safeSlugline,
                             headline: safeHeadline,
                             body_html,
-                            headline_extended: extra.headline_extended,
+                            headline_extended: extra ? extra.headline_extended : undefined,
                         },
                     },
                 }).then((res) => {
@@ -396,7 +396,7 @@ export function getAutoTaggingComponent(superdesk: ISuperdesk, label: string) {
                             language,
                             headline,
                             body_html,
-                            headline_extended: extra.headline_extended,
+                            headline_extended: extra ? extra.headline_extended : undefined,
                         },
                         tags: toServerFormat(tags, superdesk),
                     },
