@@ -199,7 +199,7 @@ export function getAutoTaggingComponent(superdesk: ISuperdesk, label: string) {
             const dataBeforeLoading = this.state.data;
 
             this.setState({data: 'loading'}, () => {
-                const {guid, language, headline, body_html, abstract, slugline} = this.props.article;
+                const {guid, language, headline, body_html, extra, slugline} = this.props.article;
                 // Apply the ampersand replacement
                 const safeHeadline = this.replaceAmpersand(headline);
                 const safeSlugline = this.replaceAmpersand(slugline);
@@ -215,7 +215,7 @@ export function getAutoTaggingComponent(superdesk: ISuperdesk, label: string) {
                             slugline: safeSlugline,
                             headline: safeHeadline,
                             body_html,
-                            abstract,
+                            headline_extended: extra.headline_extended,
                         },
                     },
                 }).then((res) => {
@@ -382,7 +382,7 @@ export function getAutoTaggingComponent(superdesk: ISuperdesk, label: string) {
             });
         }
         sendFeedback(article: IArticle, tags: IAutoTaggingResponse['analysis']): Promise<any> {
-            const {guid, language, headline, body_html, abstract} = article;
+            const {guid, language, headline, body_html, extra} = article;
 
             return httpRequestJsonLocal<{analysis: IServerResponse}>({
                 method: 'POST',
@@ -396,7 +396,7 @@ export function getAutoTaggingComponent(superdesk: ISuperdesk, label: string) {
                             language,
                             headline,
                             body_html,
-                            abstract,
+                            headline_extended: extra.headline_extended,
                         },
                         tags: toServerFormat(tags, superdesk),
                     },
