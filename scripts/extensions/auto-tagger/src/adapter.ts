@@ -49,6 +49,7 @@ export function toClientFormat(response: IServerResponse): OrderedMap<string, IT
         const {name, description, qcode, source, altids, creator, relevance, aliases, original_source, parent, scheme} = item;
         // Checking if the item has original_source to filter auto tagger tags
         if (original_source != null) {
+            // TODO: Remove or scheme === "subject" condition
             if(scheme === "http://cv.iptc.org/newscodes/mediatopic/" || scheme === "subject") {
                 const tag: ITagUi = {
                     name,
@@ -68,7 +69,8 @@ export function toClientFormat(response: IServerResponse): OrderedMap<string, IT
                 };
     
                 tags = tags.set(tag.qcode, tag);
-            }else {
+            }
+            else {
                 const tag: ITagUi = {
                     name,
                     description,
@@ -85,14 +87,15 @@ export function toClientFormat(response: IServerResponse): OrderedMap<string, IT
                         value: item.scheme || '',
                     },
                 };
-    
+
                 tags = tags.set(tag.qcode, tag);
             }
 
         }
     });
 
-
+    console.log("Tags after first process: ", tags);
+    
     const others: Array<{group: string; items: Array<ITagBase>}> = [];
 
     if (response.organisation != null) {
@@ -114,6 +117,8 @@ export function toClientFormat(response: IServerResponse): OrderedMap<string, IT
     if (response.object != null) {
         others.push({group: 'object', items: response.object});
     }
+
+    console.log("Tags after grouping other tags: ", tags);
 
     others.forEach(({group, items}) => {
         items.forEach((item) => {
@@ -141,6 +146,7 @@ export function toClientFormat(response: IServerResponse): OrderedMap<string, IT
             }
         });
     });
+    console.log("All tags: ", tags);
     return tags;
 }
 
