@@ -346,10 +346,18 @@ export function getAutoTaggingComponent(superdesk: ISuperdesk, label: string) {
 
             let result: OrderedMap<string, ITagUi> = data.changes.analysis;
 
-            result = result.set(tag.qcode, tag);
+            // Check if the tag.qcode already exists in the result
+            if (!result.has(tag.qcode)) {
+                // If it doesn't exist, add it to the result
+                result = result.set(tag.qcode, tag);
+            }
 
             for (const parent of parentsForChosenTag) {
-                result = result.set(parent.qcode, parent);
+                // Check if the parent.qcode already exists in the result
+                if (!result.has(parent.qcode)) {
+                    // If it doesn't exist, add it to the result
+                    result = result.set(parent.qcode, parent);
+                }
             }
 
             this.updateTags(
@@ -358,8 +366,7 @@ export function getAutoTaggingComponent(superdesk: ISuperdesk, label: string) {
             );
             // Reset the autocomplete input
             this.setState({ tentativeTagName: '' });
-        }
-        getGroupName(group: string, vocabularyLabels: Map<string, string>) {
+        }        getGroupName(group: string, vocabularyLabels: Map<string, string>) {
             return this.semaphoreFields.others[group]?.name ?? vocabularyLabels?.get(group) ?? group;
         }
         reload() {
