@@ -94,7 +94,7 @@ export function toClientFormat(response: IServerResponse): OrderedMap<string, IT
         }
     });
 
-    console.log("Tags after first process: ", [...tags]);
+    console.log("Tags after first process: ", tags.toArray());
     
     const others: Array<{group: string; items: Array<ITagBase>}> = [];
 
@@ -118,7 +118,7 @@ export function toClientFormat(response: IServerResponse): OrderedMap<string, IT
         others.push({group: 'object', items: response.object});
     }
 
-    console.log("Tags after grouping other tags: ", [...tags]);
+    console.log("Tags after grouping other tags: ", tags.toArray());
 
     others.forEach(({group, items}) => {
         items.forEach((item) => {
@@ -146,7 +146,7 @@ export function toClientFormat(response: IServerResponse): OrderedMap<string, IT
             }
         });
     });
-    console.log("All tags: ", [...tags]);
+    console.log("All tags: ", tags.toArray());
     return tags;
 }
 
