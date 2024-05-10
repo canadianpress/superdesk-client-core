@@ -330,6 +330,8 @@ export function getAutoTaggingComponent(superdesk: ISuperdesk, label: string) {
                 ? toClientFormat(searchResponse.result.broader)
                 : OrderedMap<string, ITagUi>();
 
+            console.log('parentsMixed:', parentsMixed); // Log parentsMixed
+
             const parentsForChosenTag: Array<ITagUi> = [];
 
             let latestParent = tag;
@@ -344,13 +346,19 @@ export function getAutoTaggingComponent(superdesk: ISuperdesk, label: string) {
                 latestParent = nextParent;
             }
 
+            console.log('parentsForChosenTag:', parentsForChosenTag); // Log parentsForChosenTag
+
             let result: OrderedMap<string, ITagUi> = data.changes.analysis;
+
+            console.log('Initial result:', result); // Log initial result
 
             // Check if the tag.qcode already exists in the result
             if (!result.has(tag.qcode)) {
                 // If it doesn't exist, add it to the result
                 result = result.set(tag.qcode, tag);
             }
+
+            console.log('Result after adding tag:', result); // Log result after adding tag
 
             for (const parent of parentsForChosenTag) {
                 // Check if the parent.qcode already exists in the result
@@ -360,13 +368,16 @@ export function getAutoTaggingComponent(superdesk: ISuperdesk, label: string) {
                 }
             }
 
+            console.log('Result after adding parents:', result); // Log result after adding parents
+
             this.updateTags(
                 result,
                 data,
             );
             // Reset the autocomplete input
             this.setState({ tentativeTagName: '' });
-        }        getGroupName(group: string, vocabularyLabels: Map<string, string>) {
+        }   
+        getGroupName(group: string, vocabularyLabels: Map<string, string>) {
             return this.semaphoreFields.others[group]?.name ?? vocabularyLabels?.get(group) ?? group;
         }
         reload() {
