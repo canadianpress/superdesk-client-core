@@ -576,11 +576,13 @@ export function getAutoTaggingComponent(superdesk: ISuperdesk, label: string) {
                                                             },
                                                         }).then((res) => {
                                                             if (cancelled !== true) {
-                                                                const json_response = res.analysis.result;
+                                                                const json_response = res.analysis.result.tags;
+                                                                console.log("json response", json_response)
                                                                 const result_data = res.analysis;
+                                                                console.log("result_data", result_data)
                                             
                                                                 const result = toClientFormat(json_response).toArray();
-    
+                                                                console.log("result", result)
                                                                 const withoutExistingTags = result.filter(
                                                                   (searchTag) => !tagAlreadyExists(data, searchTag.qcode)
                                                                 );
