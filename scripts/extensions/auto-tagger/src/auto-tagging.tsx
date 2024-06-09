@@ -576,6 +576,9 @@ export function getAutoTaggingComponent(superdesk: ISuperdesk, label: string) {
                                                             },
                                                         }).then((res) => {
                                                             if (cancelled !== true) {
+                                                                console.log("res.analysis", res.analysis);
+                                                                console.log("res.analysis.result", res.analysis.result);
+                                                                console.log("res.analysis.result.tags", res.analysis.result.tags);
                                                                 const json_response = res.analysis.result.tags;
                                                                 console.log("json response", json_response)
                                                                 const result_data = res.analysis;
