@@ -490,7 +490,9 @@ export function AuthoringDirective(
 
             function publishItem(orig, item) {
                 autosave.stop(item);
-
+                console.log("original ", orig);
+                console.log("item ", item);
+                console.log("&scope ", item);
                 var action = $scope.action === 'edit' ? 'publish' : $scope.action;
                 const onPublishMiddlewares = getOnPublishMiddlewares();
                 let warnings: Array<{text: string}> = [];
