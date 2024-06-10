@@ -577,10 +577,11 @@ export function getAutoTaggingComponent(superdesk: ISuperdesk, label: string) {
                                                         }).then((res) => {
                                                             if (cancelled !== true) {
                                                                 let result;
+                                                                let result_data = res.analysis;
                                                                 if (res.analysis && res.analysis.result && res.analysis.result.tags) {
                                                                     result = toClientFormat(res.analysis.result.tags).toArray();
-                                                                } else if (res.analysis) {
-                                                                    result = toClientFormat(res.analysis).toArray();
+                                                                // } else if (res.analysis) {
+                                                                //     result = toClientFormat(res.analysis).toArray();
                                                                 } else {
                                                                     console.error('Unexpected response format');
                                                                     return;
