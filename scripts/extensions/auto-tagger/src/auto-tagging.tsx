@@ -576,16 +576,15 @@ export function getAutoTaggingComponent(superdesk: ISuperdesk, label: string) {
                                                             },
                                                         }).then((res) => {
                                                             if (cancelled !== true) {
-                                                                console.log("res.analysis", res.analysis);
-                                                                console.log("res.analysis.result", res.analysis.result);
-                                                                console.log("res.analysis.result.tags", res.analysis.result.tags);
-                                                                const json_response = res.analysis.result.tags;
-                                                                console.log("json response", json_response)
-                                                                const result_data = res.analysis;
-                                                                console.log("result_data", result_data)
-                                            
-                                                                const result = toClientFormat(json_response).toArray();
-                                                                console.log("result", result)
+                                                                let result;
+                                                                if (res.analysis && res.analysis.result && res.analysis.result.tags) {
+                                                                    result = toClientFormat(res.analysis.result.tags).toArray();
+                                                                } else if (res.analysis) {
+                                                                    result = toClientFormat(res.analysis).toArray();
+                                                                } else {
+                                                                    console.error('Unexpected response format');
+                                                                    return;
+                                                                }
                                                                 const withoutExistingTags = result.filter(
                                                                   (searchTag) => !tagAlreadyExists(data, searchTag.qcode)
                                                                 );
