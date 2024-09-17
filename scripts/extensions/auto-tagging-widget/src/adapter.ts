@@ -2,6 +2,7 @@ import {ITagUi} from './types';
 import {OrderedMap} from 'immutable';
 import {ISuperdesk} from 'superdesk-api';
 
+
 export interface ITagBase {
     name: string;
     description?: string;
@@ -46,6 +47,8 @@ export function toClientFormat(response: IServerResponse): OrderedMap<string, IT
     response.subject?.forEach((item) => {
         const {name, description, qcode, source, altids, aliases, original_source, parent} = item;
 
+        console.log("We are in toClientFormat");
+        console.log("Item is : ", item);
         const tag: ITagUi = {
             name,
             description,
@@ -62,6 +65,7 @@ export function toClientFormat(response: IServerResponse): OrderedMap<string, IT
         };
 
         tags = tags.set(tag.qcode, tag);
+        console.log("Tags are first hit ", tags);
     });
 
     const others: Array<{group: string; items: Array<ITagBase>}> = [];
@@ -109,6 +113,7 @@ export function toClientFormat(response: IServerResponse): OrderedMap<string, IT
         });
     });
 
+    console.log("Tags are : ", tags);
     return tags;
 }
 
