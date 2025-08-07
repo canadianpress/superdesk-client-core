@@ -8,7 +8,7 @@ import {appConfig} from 'appConfig';
 import {fileUploadErrorModal} from './file-upload-error-modal';
 import {showModal} from '@sourcefabric/common';
 import {sdApi} from 'api';
-import {parseMetadata} from '@taylorli2000/exiftool/cjs';
+import {parseMetadata} from '@uswriting/exiftool/cjs';
 import {IContentProfileType} from 'apps/workspace/content/controllers/ContentProfilesController';
 import {EXIFTOOL_ARGS, IPTC_XMP_TAGS, XMP_IPTC_TAGS} from 'apps/archive/constants';
 import {getObjectEntries} from 'utils/object';
