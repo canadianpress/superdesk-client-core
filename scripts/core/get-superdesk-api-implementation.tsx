@@ -129,6 +129,7 @@ import {showPopup} from 'superdesk-ui-framework/react';
 import {ui} from './ui-utils';
 import {VocabularySelect} from './ui/components/vocabulary-select';
 import {dataStore} from 'data-store';
+import { DateInput } from './ui/components/Form';
 
 export function openArticle(
     id: IArticle['_id'],
@@ -481,6 +482,7 @@ export function getSuperdeskApiImplementation(
             authoring: {
                 PreviewFieldType,
             },
+            DateInput,
         },
         forms: {
             FormFieldType,
