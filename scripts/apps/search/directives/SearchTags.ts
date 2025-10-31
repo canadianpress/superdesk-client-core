@@ -80,6 +80,13 @@ export function SearchTags($location, tags, asset, metadata, desks, $rootScope) 
                     $rootScope.$broadcast('tag:removed');
 
                     return;
+                } else if (searchParameters.params) {
+                    const key = param.split(':')[0].trim();
+                    const params = JSON.parse(searchParameters.params);
+
+                    delete params[key];
+                    searchParameters.params = JSON.stringify(params);
+                    $location.search('params', searchParameters.params || null);
                 }
 
                 var parameterValue = '';
