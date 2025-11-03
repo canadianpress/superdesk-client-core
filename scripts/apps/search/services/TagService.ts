@@ -68,7 +68,7 @@ export function TagService($location, desks, userList, metadata, search,
     * @param params search parameters
     * @param objectOnly A boolean to decide what needs to be returned
     */
-    function initSelectedParameters(params, objectOnly?: boolean) {
+    function initSelectedParameters(params, objectOnly?: boolean, isSearchParams?: boolean) {
         let parameters = params;
 
         let selectedParameters = [];
@@ -82,20 +82,22 @@ export function TagService($location, desks, userList, metadata, search,
                 parameters.indexOf(')', colonIndex) + 1);
             var added = false;
 
-            cvs.forEach((cv) => {
-                if (parameter.indexOf(cv.id) !== -1) {
-                    var value = parameter.substring(parameter.indexOf('(') + 1, parameter.lastIndexOf(')')),
-                        codeList = metadata.values[cv.list],
-                        name = _.result(_.find(codeList, {qcode: value}), 'name');
+            if (!isSearchParams) {
+                cvs.forEach((cv) => {
+                    if (parameter.indexOf(cv.id) !== -1) {
+                        var value = parameter.substring(parameter.indexOf('(') + 1, parameter.lastIndexOf(')')),
+                            codeList = metadata.values[cv.list],
+                            name = _.result(_.find(codeList, {qcode: value}), 'name');
 
-                    if (name) {
-                        const tagValue = cv.id + '.name:(' + name + ')';
+                        if (name) {
+                            const tagValue = cv.id + '.name:(' + name + ')';
 
-                        selectedParameters.push(tag(tagValue, tagValue));
-                        added = true;
+                            selectedParameters.push(tag(tagValue, tagValue));
+                            added = true;
+                        }
                     }
-                }
-            });
+                });
+            }
 
             if (!added) {
                 var paramArr = parameter.split(':');
@@ -389,9 +391,13 @@ export function TagService($location, desks, userList, metadata, search,
             tags.commonTags = [];
 
             var parameters = tags.currentSearch.q;
+            let searchParams = tags.currentSearch.params ? JSON.parse(tags.currentSearch.params) : {};
+
+            if (!parameters)
+                parameters = Object.entries(searchParams).map(([key, value]) => `${key}:(${value})`).join(' ');
 
             if (parameters) {
-                var keywords = initSelectedParameters(parameters);
+                var keywords = initSelectedParameters(parameters, false, Object.keys(searchParams).length > 0);
 
                 initSelectedKeywords(keywords);
             }

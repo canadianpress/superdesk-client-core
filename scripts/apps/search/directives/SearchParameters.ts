@@ -352,7 +352,7 @@ export function SearchParameters($location, asset, tags, metadata, common, desks
             }
 
             scope.$on('$locationChangeSuccess', () => {
-                if (scope.query !== $location.search().q || isFieldDifferentThanSearch()) {
+                if (scope.query !== $location.search().q || isFieldDifferentThanSearch() || $location.search().params) {
                     init();
                 }
             });
