@@ -159,7 +159,7 @@ class ItemsListLimitedComponent extends React.Component<IProps, IState> {
                 }}
                 hideActionsForMonitoringItems={true}
                 singleLine={false}
-                customRender={undefined}
+                customRender={{getItemClass: () => 'sd-input--full-width', fields: {family_id: () => null}}}
                 flags={{hideActions: true}}
                 loading={false}
                 viewColumn={undefined}

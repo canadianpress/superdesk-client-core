@@ -39,6 +39,7 @@ import {Used} from './used';
 import {LinesCount} from './linesCount';
 import {Authors} from './authors';
 import {IArticle} from 'superdesk-api';
+import {Duplicates} from './duplicates';
 
 interface IFieldProps extends Partial<IPropsItemListInfo> {
     item: IPropsItemListInfo['item']; // this one not nullable
@@ -88,4 +89,5 @@ export const fields: {[key: string]: IReactFieldComponentClass<IFieldProps>} = {
     translations: Translations,
     used: Used,
     authors: Authors,
+    family_id: Duplicates,
 };

@@ -2,9 +2,11 @@ import React from 'react';
 import {IArticle, IRestApiResponse} from 'superdesk-api';
 import {ItemsListLimited} from 'core/itemList/items-list-limited';
 import {openArticle} from 'core/get-superdesk-api-implementation';
+import ng from 'core/services/ng';
 
 interface IProps {
     relatedItems: IRestApiResponse<IArticle>;
+    showPreview?: boolean;
 }
 
 export class RelatedView extends React.PureComponent<IProps> {
@@ -16,7 +18,8 @@ export class RelatedView extends React.PureComponent<IProps> {
                 <ItemsListLimited
                     ids={ids}
                     onItemClick={(item) => {
-                        openArticle(item._id, 'edit');
+                        if (this.props.showPreview) ng.get('$rootScope').$broadcast('broadcast:preview', {item});
+                        else openArticle(item._id, 'edit');
                     }}
                 />
             </div>
