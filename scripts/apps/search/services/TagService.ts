@@ -68,7 +68,7 @@ export function TagService($location, desks, userList, metadata, search,
     * @param params search parameters
     * @param objectOnly A boolean to decide what needs to be returned
     */
-    function initSelectedParameters(params, objectOnly?: boolean, isSearchParams?: boolean) {
+    function initSelectedParameters(params, objectOnly?: boolean) {
         let parameters = params;
 
         let selectedParameters = [];
@@ -82,22 +82,26 @@ export function TagService($location, desks, userList, metadata, search,
                 parameters.indexOf(')', colonIndex) + 1);
             var added = false;
 
-            if (!isSearchParams) {
-                cvs.forEach((cv) => {
-                    if (parameter.indexOf(cv.id) !== -1) {
-                        var value = parameter.substring(parameter.indexOf('(') + 1, parameter.lastIndexOf(')')),
-                            codeList = metadata.values[cv.list],
-                            name = _.result(_.find(codeList, {qcode: value}), 'name');
+            cvs.forEach((cv) => {
+                if (parameter.indexOf(cv.id) !== -1) {
+                    const codeList = metadata.values[cv.list];
+                    const values = parameter
+                        .substring(parameter.indexOf('(') + 1, parameter.lastIndexOf(')'))
+                        .split(',');
+
+                    values.forEach((value) => {
+                        const name = _.result(_.find(codeList, {qcode: value}), 'name');
 
                         if (name) {
-                            const tagValue = cv.id + '.name:(' + name + ')';
+                            const tagLabel = cv.name + ':(' + name + ')';
+                            const tagValue = cv.id + ':(' + value + ')';
 
-                            selectedParameters.push(tag(tagValue, tagValue));
+                            selectedParameters.push(tag(tagLabel, tagValue));
                             added = true;
                         }
-                    }
-                });
-            }
+                    });
+                }
+            });
 
             if (!added) {
                 var paramArr = parameter.split(':');
@@ -397,7 +401,7 @@ export function TagService($location, desks, userList, metadata, search,
                 parameters = Object.entries(searchParams).map(([key, value]) => `${key}:(${value})`).join(' ');
 
             if (parameters) {
-                var keywords = initSelectedParameters(parameters, false, Object.keys(searchParams).length > 0);
+                var keywords = initSelectedParameters(parameters);
 
                 initSelectedKeywords(keywords);
             }
@@ -485,5 +489,6 @@ export function TagService($location, desks, userList, metadata, search,
         initSelectedFacets: initSelectedFacets,
         removeFacet: removeFacet,
         initSelectedParameters: initSelectedParameters,
+        getParamObject,
     };
 }
