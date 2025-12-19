@@ -84,18 +84,22 @@ export function TagService($location, desks, userList, metadata, search,
 
             cvs.forEach((cv) => {
                 if (parameter.indexOf(cv.id) !== -1) {
-                    const codeList = metadata.values[cv.list]
-                    const values = parameter.substring(parameter.indexOf('(') + 1, parameter.lastIndexOf(')')).split(",")
+                    const codeList = metadata.values[cv.list];
+                    const values = parameter
+                        .substring(parameter.indexOf('(') + 1, parameter.lastIndexOf(')'))
+                        .split(',');
 
-                    values.forEach(value => {
+                    values.forEach((value) => {
                         const name = _.result(_.find(codeList, {qcode: value}), 'name');
+
                         if (name) {
                             const tagLabel = cv.name + ':(' + name + ')';
                             const tagValue = cv.id + ':(' + value + ')';
+
                             selectedParameters.push(tag(tagLabel, tagValue));
                             added = true;
                         }
-                    })
+                    });
                 }
             });
 

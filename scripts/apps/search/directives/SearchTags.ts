@@ -81,13 +81,13 @@ export function SearchTags($location, tags, asset, metadata, desks, $rootScope) 
 
                     return;
                 } else if (searchParameters.params) {
-                    const [key, value] = tags.getParamObject(param.split(":"));
+                    const [key, value] = tags.getParamObject(param.split(':'));
                     const params = JSON.parse(searchParameters.params);
-                    if(Array.isArray(params[key])) {
+
+                    if (Array.isArray(params[key])) {
                         params[key] = params[key].filter((v) => v !== value);
-                        if(!params[key].length) delete params[key];
-                    }
-                    else delete params[key];
+                        if (!params[key].length) delete params[key];
+                    } else delete params[key];
 
                     searchParameters.params = JSON.stringify(params);
                     $location.search('params', searchParameters.params || null);
